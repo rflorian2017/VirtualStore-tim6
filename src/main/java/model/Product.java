@@ -1,10 +1,27 @@
 package model;
 
+import javax.persistence.*;
+
+@Entity
+@Table
 public class Product {
+    @Id
     private int code;
     private String name;
     private String supplier;
     private double price;
+
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 
     public Product() {
     }

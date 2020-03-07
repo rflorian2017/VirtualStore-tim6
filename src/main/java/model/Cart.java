@@ -1,22 +1,43 @@
 package model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+@Entity
+@Table
 public class Cart {
-    private List<Product> products;
+    @Id
+    @Column(name = "cart_id")
+    private int id;
+
+    @OneToMany(mappedBy = "cart")
+    private Set<Product> products;
+
+    @OneToOne(mappedBy = "cart")
     private Customer customer;
+
+    public Cart() {
+    }
 
     public Cart(Customer customer) {
         this.customer = customer;
-        products = new ArrayList<Product>();
     }
 
-    public List<Product> getProducts() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 
