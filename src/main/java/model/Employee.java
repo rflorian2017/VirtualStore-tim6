@@ -5,8 +5,8 @@ import javax.persistence.*;
 @NamedQueries(
         {
                 @NamedQuery(
-                        name = "Employee.deleteByName",
-                        query = "DELETE from Employee e WHERE e.name = :name" //JPQL syntax
+                        name = "Employee.findByName",
+                        query = "SELECT e from Employee e WHERE e.name = :name" //JPQL syntax
                 )
         }
 )

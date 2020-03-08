@@ -23,9 +23,8 @@ public class EmployeeRepository implements CrudRepository<Employee, Integer> {
 
     public List<Employee> findByName(String name) {
         // JPQL query - Java Persistence Query Language
-        return entityManager
-                .createQuery("SELECT e FROM Employee e WHERE e.name = :given_name")
-                .setParameter("given_name", name)
+        return entityManager.createNamedQuery("Employee.findByName", Employee.class)
+                .setParameter("name", name)
                 .getResultList();
     }
 
@@ -56,10 +55,11 @@ public class EmployeeRepository implements CrudRepository<Employee, Integer> {
         return null;
     }
 
-    public void deleteByName(String name) {
+    public void deleteByName(String given_name) {
         entityManager.getTransaction().begin();
-        entityManager.createNamedQuery("Employee.deleteByName", Employee.class)
-                .setParameter("name", name)
+        entityManager
+                .createQuery("DELETE FROM Employee e WHERE e.name = :given_name")
+                .setParameter("given_name", given_name)
                 .executeUpdate();
         entityManager.getTransaction().commit();
     }
