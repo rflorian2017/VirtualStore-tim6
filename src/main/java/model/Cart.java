@@ -1,21 +1,12 @@
 package model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
-@Entity
-@Table
 public class Cart {
-    @Id
-    @Column(name = "cart_id")
     private int id;
 
-    @OneToMany(mappedBy = "cart")
     private Set<Product> products;
 
-    @OneToOne(mappedBy = "cart")
     private Customer customer;
 
     public Cart() {

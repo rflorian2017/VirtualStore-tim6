@@ -1,10 +1,6 @@
 import db.DatabaseWrapper;
 import model.Customer;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,7 +12,7 @@ public class VirtualStore {
     public static void main(String[] args) throws SQLException, IOException {
         DatabaseWrapper databaseWrapper = new DatabaseWrapper();
 
-//        databaseWrapper.connect();
+        databaseWrapper.connect();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         String menu = "1. Create table customer\n" +
@@ -58,11 +54,6 @@ public class VirtualStore {
                     break;
                 case 7:
                     databaseWrapper.dropTable("customer");
-                    break;
-                case 8:
-                    EntityManagerFactory entityManagerFactory =
-                            Persistence.createEntityManagerFactory("Virtual_Store");
-                    EntityManager entityManager = entityManagerFactory.createEntityManager();
                     break;
 
             }

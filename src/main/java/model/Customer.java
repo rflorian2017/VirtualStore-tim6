@@ -1,17 +1,10 @@
 package model;
 
-import javax.persistence.*;
-
-@Entity
-@Table
 public class Customer {
-    @Id
-    @Column(name = "customer_id")
+
     private int id;
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cart_id" , referencedColumnName = "cart_id")
     private Cart cart;
 
     public Customer() {
