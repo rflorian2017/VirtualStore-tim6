@@ -1,4 +1,6 @@
+import db.repository.EmployeeRepository;
 import model.Customer;
+import model.Employee;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -7,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
+import java.util.Optional;
 
 
 public class VirtualStore {
@@ -18,9 +21,11 @@ public class VirtualStore {
                 Persistence.createEntityManagerFactory("Virtual_Store");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        String menu = "1. Create table customer\n" +
+        EmployeeRepository employeeRepository = new EmployeeRepository(entityManager);
+
+        String menu = "1. Find by id\n" +
                 "2. Insert customer\n" +
-                "3. Show all customers \n" +
+                "3. Delete by id \n" +
                 "4. Populate customers \n" +
                 "5. Rename Ion\n" +
                 "6. Delete records from table \n" +
@@ -33,12 +38,24 @@ public class VirtualStore {
 
             switch (chosenOption) {
                 case 1:
+                    Optional optional = employeeRepository.findById(2);
+                    Employee search_employee = (Employee)optional.get();
 
+                    search_employee.setName("Gogu");
+                    employeeRepository.save(search_employee);
+
+                    System.out.println(search_employee.getId() + " " + search_employee.getName());
                     break;
                 case 2:
+                    System.out.println(entityManager.getClass());
+                    Employee employee = new Employee();
+                    System.out.println(employee.getClass());
+                    employee.setName("alex");
+
+                    employeeRepository.save(employee);
                     break;
                 case 3:
-
+                    employeeRepository.deleteById(3);
                     break;
                 case 4:
 
