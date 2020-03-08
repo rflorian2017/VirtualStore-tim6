@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private int id;
     private String name;
@@ -39,5 +40,14 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cart=" + cart +
+                '}';
     }
 }

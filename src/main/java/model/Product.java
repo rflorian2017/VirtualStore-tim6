@@ -11,7 +11,7 @@ public class Product {
     private String supplier;
     private double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
@@ -56,5 +56,16 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "code=" + code +
+                ", name='" + name + '\'' +
+                ", supplier='" + supplier + '\'' +
+                ", price=" + price +
+                ", cart=" + cart +
+                '}';
     }
 }

@@ -56,18 +56,22 @@ public class EmployeeRepository implements CrudRepository<Employee, Integer> {
     }
 
     public void deleteByName(String given_name) {
-        entityManager.getTransaction().begin();
-        entityManager
-                .createQuery("DELETE FROM Employee e WHERE e.name = :given_name")
-                .setParameter("given_name", given_name)
-                .executeUpdate();
-        entityManager.getTransaction().commit();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager
+                    .createQuery("DELETE FROM Employee e WHERE e.name = :given_name")
+                    .setParameter("given_name", given_name)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception ex) {
+            entityManager.getTransaction().rollback();
+        }
     }
 
     @Override
     public Optional<Employee> findById(Integer id) {
         Employee employee = entityManager.find(Employee.class, id);
-        if(employee != null)
+        if (employee != null)
             return Optional.of(employee);
         return Optional.empty();
     }

@@ -10,6 +10,7 @@ import java.util.Set;
 public class Cart {
     @Id
     @Column(name = "cart_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @OneToMany(mappedBy = "cart")
@@ -47,5 +48,14 @@ public class Cart {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", products=" + products +
+                ", customer=" + customer +
+                '}';
     }
 }
