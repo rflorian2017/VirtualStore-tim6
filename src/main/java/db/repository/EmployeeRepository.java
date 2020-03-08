@@ -17,7 +17,16 @@ public class EmployeeRepository implements CrudRepository<Employee, Integer> {
 
     @Override
     public List<Employee> findAll() {
-        return null;
+        // JPQL query - Java Persistence Query Language
+        return entityManager.createQuery("SELECT e FROM Employee e").getResultList();
+    }
+
+    public List<Employee> findByName(String name) {
+        // JPQL query - Java Persistence Query Language
+        return entityManager
+                .createQuery("SELECT e FROM Employee e WHERE e.name = :given_name")
+                .setParameter("given_name", name)
+                .getResultList();
     }
 
     @Override
@@ -45,6 +54,14 @@ public class EmployeeRepository implements CrudRepository<Employee, Integer> {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public void deleteByName(String name) {
+        entityManager.getTransaction().begin();
+        entityManager.createNamedQuery("Employee.deleteByName", Employee.class)
+                .setParameter("name", name)
+                .executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
     @Override

@@ -2,6 +2,14 @@ package model;
 
 import javax.persistence.*;
 
+@NamedQueries(
+        {
+                @NamedQuery(
+                        name = "Employee.deleteByName",
+                        query = "DELETE from Employee e WHERE e.name = :name" //JPQL syntax
+                )
+        }
+)
 @Entity
 @Table
 public class Employee {

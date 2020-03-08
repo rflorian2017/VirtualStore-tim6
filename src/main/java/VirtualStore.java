@@ -24,11 +24,11 @@ public class VirtualStore {
         EmployeeRepository employeeRepository = new EmployeeRepository(entityManager);
 
         String menu = "1. Find by id\n" +
-                "2. Insert customer\n" +
+                "2. Insert employee\n" +
                 "3. Delete by id \n" +
-                "4. Populate customers \n" +
-                "5. Rename Ion\n" +
-                "6. Delete records from table \n" +
+                "4. Show all employees \n" +
+                "5. Show employee by name\n" +
+                "6. Delete records from table by name \n" +
                 "7. Drop table\n";
         System.out.println(menu);
         String option = bufferedReader.readLine();
@@ -38,33 +38,52 @@ public class VirtualStore {
 
             switch (chosenOption) {
                 case 1:
-                    Optional optional = employeeRepository.findById(2);
-                    Employee search_employee = (Employee)optional.get();
+                    System.out.print("Give id to search for: ");
+                    String searchId = bufferedReader.readLine();
 
-                    search_employee.setName("Gogu");
+                    Optional optional = employeeRepository.findById(Integer.parseInt(searchId));
+                    Employee search_employee = (Employee) optional.get();
+
+                    System.out.print("Give new name: ");
+                    String new_name = bufferedReader.readLine();
+                    search_employee.setName(new_name);
                     employeeRepository.save(search_employee);
 
                     System.out.println(search_employee.getId() + " " + search_employee.getName());
                     break;
                 case 2:
-                    System.out.println(entityManager.getClass());
+//                    System.out.println(entityManager.getClass());
                     Employee employee = new Employee();
                     System.out.println(employee.getClass());
-                    employee.setName("alex");
+                    System.out.print("Give name: ");
+                    String employee_name = bufferedReader.readLine();
+                    employee.setName(employee_name);
 
                     employeeRepository.save(employee);
                     break;
                 case 3:
-                    employeeRepository.deleteById(3);
+                    System.out.print("Give id to delete: ");
+                    String deleteId = bufferedReader.readLine();
+                    employeeRepository.deleteById(Integer.parseInt(deleteId));
                     break;
                 case 4:
-
+                    for (Employee e : employeeRepository.findAll()) {
+                        System.out.println(e.getId() + " " + e.getName());
+                    }
+                    System.out.println();
                     break;
                 case 5:
-
+                    System.out.print("Give name: ");
+                    String readName = bufferedReader.readLine();
+                    for (Employee e : employeeRepository.findByName(readName)) {
+                        System.out.println(e.getId() + " " + e.getName());
+                    }
+                    System.out.println();
                     break;
                 case 6:
-
+                    System.out.print("Give name to delete: ");
+                    String deleteName = bufferedReader.readLine();
+                    employeeRepository.deleteByName(deleteName);
                     break;
                 case 7:
 
